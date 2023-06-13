@@ -1,0 +1,5 @@
+client/.env
+client/node_modules/
+client/next-env.d.ts
+client/package-lock.json
+client/.next/
