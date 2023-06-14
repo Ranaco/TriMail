@@ -7,7 +7,7 @@ module.exports = {
   networks: {
     matic: {
       provider: () =>
-        HDWalletProvider(
+        new HDWalletProvider(
           PRIVATE_KEY,
           "wss://rpc.particle.network/evm-chain?chainId=80001&projectUuid=5ec02423-8ed2-4095-b94c-c4b3ee10cfa8&projectKey=cWaltdX1vkwduytUaTuqlrTlNLFOrZ37yO4Niugp"
         ),

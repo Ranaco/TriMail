@@ -9,6 +9,9 @@ import ParticleService from "../lib/utils/particle-service";
 import { AppContextState, AppContextValue } from "../lib/types";
 import { PolybaseProvider } from "@polybase/react";
 import { triMailDB } from "../lib/utils/polybase-service";
+import Web3 from "web3";
+import { Contract } from "web3";
+import loadContract from "../lib/loadContract";
 
 //App context
 export const AppState = React.createContext<AppContextValue | undefined>(
@@ -29,16 +32,38 @@ const App: React.FC<EmotionAppProps> = ({
   router,
   emotionCache = clientEmotionCache,
 }) => {
-  const particleService: ParticleService = new ParticleService();
+  const particleService: ParticleService = new ParticleService(router);
+  let address: any;
 
   //App State
   const initState: AppContextState = {
     address: "",
-    particle: particleService.particle,
-    particleAuth: particleService.particleAuth,
+    provider: particleService.particleProvider,
+    particleService: new ParticleService(router),
+    userSBT: undefined,
   };
   const [state, setState] = React.useState<AppContextState>(initState);
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    setupLogin();
+  }, []);
+
+  const setupLogin = async () => {
+    address = await particleService.login();
+    if (address) {
+      updateState(address);
+    } else {
+      setState(initState);
+      router.push("/auth/login");
+    }
+  };
+
+  const updateState = async (address: string) => {
+    if (state.provider) {
+      const web3 = new Web3(state.provider);
+      const userSBT: Contract<any> = loadContract(web3);
+      setState((val) => ({ ...val, address, userSBT }));
+    }
+  };
 
   //Layout fix
   const getLayout = Component.getLayout;

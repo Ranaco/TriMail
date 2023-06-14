@@ -2,8 +2,9 @@ import * as React from "react";
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import { CustomLink, MuiInput } from "../../components/styled-components";
-import ParticleService from "../../lib/utils/particle-hook";
 import Layout from "../../components/layout/secondary";
+import { NextRouter, useRouter } from "next/router";
+import { AppState } from "../_app";
 
 type FormStateType = {
   email: string;
@@ -11,6 +12,8 @@ type FormStateType = {
 };
 
 const Login: React.FC = () => {
+  const { state, setState } = React.useContext(AppState);
+  const router: NextRouter = useRouter();
   const theme = useTheme();
   const [formState, setFormState] = React.useState<FormStateType>({
     email: "",
@@ -85,7 +88,11 @@ const Login: React.FC = () => {
               />
               <Button
                 onClick={() => {
-                  new ParticleService().login();
+                  state.particleService.login().then((e) => {
+                    if (e !== undefined) {
+                      router.push("/");
+                    }
+                  });
                 }}
                 sx={{
                   alignSelf: "center",
