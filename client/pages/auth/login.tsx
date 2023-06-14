@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import { CustomLink, MuiInput } from "../../components/styled-components";
-import ParticleService from "../../lib/hooks/particle-hook";
+import ParticleService from "../../lib/utils/particle-hook";
 import Layout from "../../components/layout/secondary";
 
 type FormStateType = {

@@ -5,8 +5,10 @@ import theme from "../lib/theme";
 import { CssBaseline } from "@mui/material";
 import createEmotionCache from "../lib/createEmotionCache";
 import Layout from "../components/layout/main";
-import ParticleService from "../lib/hooks/particle-hook";
+import ParticleService from "../lib/utils/particle-service";
 import { AppContextState, AppContextValue } from "../lib/types";
+import { PolybaseProvider } from "@polybase/react";
+import { triMailDB } from "../lib/utils/polybase-service";
 
 //App context
 export const AppState = React.createContext<AppContextValue | undefined>(
@@ -45,19 +47,23 @@ const App: React.FC<EmotionAppProps> = ({
     getLayout(
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppState.Provider value={{ state, setState }}>
-          <Component {...pageProps} />
-        </AppState.Provider>
+        <PolybaseProvider polybase={triMailDB}>
+          <AppState.Provider value={{ state, setState }}>
+            <Component {...pageProps} />
+          </AppState.Provider>
+        </PolybaseProvider>
       </ThemeProvider>
     )
   ) : (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppState.Provider value={{ state, setState }}>
-        <Layout router={router}>
-          <Component {...pageProps} />
-        </Layout>
-      </AppState.Provider>
+      <PolybaseProvider polybase={triMailDB}>
+        <AppState.Provider value={{ state, setState }}>
+          <Layout router={router}>
+            <Component {...pageProps} />
+          </Layout>
+        </AppState.Provider>
+      </PolybaseProvider>
     </ThemeProvider>
   );
 };
