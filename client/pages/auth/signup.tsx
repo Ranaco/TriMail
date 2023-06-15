@@ -1,8 +1,12 @@
+import * as React from "react";
 import { Button, Stack, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import * as React from "react";
 import Image from "next/image";
 import { CustomLink, MuiInput } from "../../components/styled-components";
+import Layout from "../../components/layout/secondary";
+import { usePolybase, useCollection } from "@polybase/react";
+import { AppState } from "../_app";
+import { User } from "../../lib/types";
 
 type FormStateType = {
   email: string;
@@ -13,7 +17,9 @@ type FormStateType = {
 };
 
 const SignUp: React.FC = () => {
+  const polyDB = usePolybase();
   const theme = useTheme();
+  const { state, setState } = React.useContext(AppState);
 
   const initState: FormStateType = {
     email: "",
@@ -32,6 +38,17 @@ const SignUp: React.FC = () => {
       ...val,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formState);
+    const name = [formState.firstName, formState.lastName].join(" ");
+    console.log(state);
+    // const receipt = await state.userSBT.methods
+    //   .mint(state.address, name)
+    //   .send({ from: state.address });
+    // console.log(receipt);
   };
 
   return (
@@ -75,6 +92,7 @@ const SignUp: React.FC = () => {
             </Typography>
           </Stack>
           <form
+            onSubmit={submit}
             style={{
               paddingTop: "50px",
               height: "100%",
@@ -89,7 +107,7 @@ const SignUp: React.FC = () => {
                   onChange={updateFormState}
                 />
                 <MuiInput
-                  value={formState.firstName}
+                  value={formState.lastName}
                   label={"Last name"}
                   name={"lastName"}
                   onChange={updateFormState}
@@ -129,6 +147,10 @@ const SignUp: React.FC = () => {
       </Box>
     </Stack>
   );
+};
+
+SignUp.getLayout = (page: JSX.Element) => {
+  return <Layout title="Signup">{page}</Layout>;
 };
 
 export default SignUp;

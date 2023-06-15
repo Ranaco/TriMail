@@ -2,10 +2,10 @@ import * as React from "react";
 import { Box } from "@mui/system";
 import { AppState } from "./_app";
 
-const Home: React.FC = () => {
+const LandingPage: React.FC = () => {
   const { state } = React.useContext(AppState);
   console.log(state);
-  return <Box>Homepage</Box>;
+  return <Box>Landingpage</Box>;
 };
 
-export default Home;
+export default LandingPage;

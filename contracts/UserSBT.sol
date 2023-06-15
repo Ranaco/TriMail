@@ -18,7 +18,6 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         bool locked;
         address owner;
         uint256 createdAt;
-        uint256 updatedAt;
     }
 
     mapping(address => TokenData) private tokenData;
@@ -42,19 +41,16 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
 
     function mint(
         address to,
-        string memory name,
-        string memory ipfsHash
+        string memory name
     ) external onlyOwner whenNotPaused returns(uint256 id){
         require(nextTokenId.current() < MAX_LIMIT, "Max supply reached");
 
         TokenData storage data = tokenData[to];
         data.name = name;
-        data.ipfsHash = ipfsHash;
         data.id = nextTokenId.current();
         data.owner = to;
         data.locked = false;
         data.createdAt = block.timestamp;
-        data.updatedAt = block.timestamp;
 
         _safeMint(to, nextTokenId.current());
         userRegistered[to] = true;
@@ -79,21 +75,18 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         require(_data.owner == owner, "Not the correct owner");
         _data.name = name;
         _data.ipfsHash = ipfsHash;
-        _data.updatedAt = block.timestamp;
     }
 
     function lockToken(address owner) external onlyOwner whenNotPaused {
         TokenData storage _data = tokenData[owner];
         require(_data.locked == false, "Already locked");
         _data.locked = true;
-        _data.updatedAt = block.timestamp;
     }
 
     function unlockToken(address owner) external onlyOwner whenNotPaused {
         TokenData storage _data = tokenData[owner];
         require(_data.locked == true, "Already unlocked");
         _data.locked = false;
-        _data.updatedAt = block.timestamp;
     }
 
     function getTokenData(address owner, uint256 id)

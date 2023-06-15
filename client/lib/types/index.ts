@@ -1,17 +1,26 @@
-import { ParticleNetwork } from "@particle-network/auth";
-import { ParticleConnect } from "@particle-network/connect";
 import { ParticleProvider } from "@particle-network/provider";
 import * as React from "react";
+import { Contract } from "web3";
 import ParticleService from "../utils/particle-service";
 
 export type AppContextState = {
   address: string;
   particleService: ParticleService;
   provider: ParticleProvider;
-  userSBT: any;
+  userSBT: Contract<any>;
 };
 
 export type AppContextValue = {
   state: AppContextState;
   setState: React.Dispatch<React.SetStateAction<AppContextState>>;
+};
+
+export type User = {
+  id: number;
+  name: string;
+  locked: boolean;
+  ipfsHash: string;
+  owner: string;
+  createdAt: number;
+  updatedAt: number;
 };
