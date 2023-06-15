@@ -9,7 +9,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           PRIVATE_KEY,
-          "wss://rpc.particle.network/evm-chain?chainId=80001&projectUuid=5ec02423-8ed2-4095-b94c-c4b3ee10cfa8&projectKey=cWaltdX1vkwduytUaTuqlrTlNLFOrZ37yO4Niugp"
+          "wss://rpc.particle.network/evm-chain?chainId=80001&projectUuid=256a2b62-abc2-4e43-bd25-a507f725c6d4&projectKey=c18uSSyG2iAqVUFbGF04isQ68QwJH8xJY9mw6nvb"
         ),
       network_id: 80001,
       confirmations: 2,
@@ -20,7 +20,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters, etc.
   mocha: {
-    // timeout: 100000
+    // timeout: 100000,
   },
 
   // Configure your compilers

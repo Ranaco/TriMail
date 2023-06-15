@@ -1,8 +1,8 @@
-import { ParticleNetwork } from "@particle-network/auth";
+import { ParticleNetwork, WalletEntryPosition } from "@particle-network/auth";
 import { EthereumGoerli, PolygonMumbai } from "@particle-network/common";
-import { ParticleConnect } from "@particle-network/connect";
+import { evmWallets, ParticleConnect } from "@particle-network/connect";
 import { ParticleProvider } from "@particle-network/provider";
-import { Router } from "next/router";
+import { NextRouter, Router } from "next/router";
 
 const APPID = process.env.NEXT_PUBLIC_APP_ID;
 const CLIENTKEY = process.env.NEXT_PUBLIC_CLIENT_KEY;
@@ -17,25 +17,30 @@ interface ParticleServiceInterface {
 
 class ParticleService implements ParticleServiceInterface {
   address?: string;
-  private router;
+  private router: NextRouter;
 
   constructor(router: Router) {
     this.router = router;
   }
 
-  particleAuth = new ParticleNetwork({
+  private particleAuth = new ParticleNetwork({
     appId: APPID,
     clientKey: CLIENTKEY,
     projectId: PROJECTID,
-    chainName: "Ethereum",
-    chainId: 1,
+    chainName: "Polygon",
+    chainId: 80001,
   });
 
-  particle: ParticleConnect = new ParticleConnect({
+  private particle: ParticleConnect = new ParticleConnect({
     appId: APPID,
     clientKey: CLIENTKEY,
     projectId: PROJECTID,
     chains: [PolygonMumbai, EthereumGoerli],
+    particleWalletEntry: {
+      displayWalletEntry: true,
+      defaultWalletEntryPosition: WalletEntryPosition.BR,
+      supportChains: [PolygonMumbai, EthereumGoerli],
+    },
   });
 
   particleProvider: ParticleProvider = new ParticleProvider(

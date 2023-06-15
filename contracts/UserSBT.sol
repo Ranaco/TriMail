@@ -22,6 +22,7 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
     }
 
     mapping(address => TokenData) private tokenData;
+    mapping(address => bool) private userRegistered;
 
     address public contractOwner;
 
@@ -56,9 +57,14 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         data.updatedAt = block.timestamp;
 
         _safeMint(to, nextTokenId.current());
+        userRegistered[to] = true;
         emit UserCreated(nextTokenId.current(), name,  to, false);
         nextTokenId.increment();
         return data.id;
+    }
+
+    function userExists(address owner) external view whenNotPaused returns(bool) {
+        return userRegistered[owner];
     }
 
     function updateMetadataHash(
