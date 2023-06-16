@@ -9,7 +9,6 @@ import { AppState } from "../_app";
 import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
 import { BigNumber } from "ethers";
-import { triMailDB } from "../../lib/utils/polybase-service";
 
 type FormStateType = {
   email: string;
@@ -24,6 +23,7 @@ const SignUp: React.FC = () => {
   const polyDB = usePolybase();
   const theme = useTheme();
   const { state, setState } = React.useContext(AppState);
+  console.log(state);
 
   const initState: FormStateType = {
     email: "",
@@ -74,7 +74,7 @@ const SignUp: React.FC = () => {
             ])
             .then((e) => {
               console.log(e);
-              // router.push("/home");
+              router.push("/home");
             });
         });
       setIsLoading(false);

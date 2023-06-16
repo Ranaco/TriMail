@@ -9,8 +9,8 @@ const CLIENTKEY = process.env.NEXT_PUBLIC_CLIENT_KEY;
 const PROJECTID = process.env.NEXT_PUBLIC_PROJECT_ID;
 
 interface ParticleServiceInterface {
-  logOut(): void;
-  login(): Promise<String | void>;
+  logOut();
+  login(): Promise<string | void>;
   particleProvider: ParticleProvider;
   address?: string;
 }
@@ -47,19 +47,21 @@ class ParticleService implements ParticleServiceInterface {
     this.particleAuth.auth
   );
 
-  login = async (): Promise<String | void> => {
+  login = async (): Promise<string> => {
     try {
       await this.particle.connect();
       const address = await this.particleAuth.auth.getEVMAddress();
       return address;
     } catch (err) {
+      this.router.push("/");
       console.log(err);
-      this.router.push("/auth/login");
     }
   };
 
   logOut = () => {
-    this.particle.disconnect();
+    this.particle.disconnect().then(() => {
+      this.router.replace("/");
+    });
   };
 }
 

@@ -54,7 +54,7 @@ const App: React.FC<EmotionAppProps> = ({
       updateState(address);
     } else {
       setState(initState);
-      router.push("/auth/login");
+      router.push("/");
     }
   };
 
@@ -62,18 +62,15 @@ const App: React.FC<EmotionAppProps> = ({
     if (state.provider) {
       const web3 = new Web3(state.provider);
       const userSBT: Contract<any> = loadContract(web3);
-      setState((val) => ({ ...val, address, userSBT }));
       const isRegistered = await userSBT.methods.userExists(address).call();
-      console.log(isRegistered);
       const inDb = await triMailDB
         .collection("UserSBT")
         .where("owner", "==", address)
         .get();
-      console.log(inDb.data[0]);
-      console.log(isRegistered && inDb);
+      console.log("This is the db res ", inDb.data[0]);
+      setState((val) => ({ ...val, address, userSBT }));
       if (isRegistered) {
-        console.log("replacing");
-        // router.replace("/home");
+        router.replace("/home");
       } else {
         router.replace("/auth/signup");
       }
@@ -83,7 +80,7 @@ const App: React.FC<EmotionAppProps> = ({
   //Layout fix
   const getLayout = Component.getLayout;
 
-  return state.address ? (
+  return state.provider ? (
     getLayout ? (
       getLayout(
         <ThemeProvider theme={theme}>
