@@ -7,8 +7,8 @@ import createEmotionCache from "../lib/createEmotionCache";
 import Layout from "../components/layout/main";
 import ParticleService from "../lib/utils/particle-service";
 import { AppContextState, AppContextValue } from "../lib/types";
-import { PolybaseProvider } from "@polybase/react";
-import { triMailDB } from "../lib/utils/polybase-service";
+import { PolybaseProvider, usePolybase } from "@polybase/react";
+import triMailDB from "../lib/utils/polybase-service";
 import Web3 from "web3";
 import { Contract } from "web3";
 import loadContract from "../lib/loadContract";
@@ -65,8 +65,15 @@ const App: React.FC<EmotionAppProps> = ({
       setState((val) => ({ ...val, address, userSBT }));
       const isRegistered = await userSBT.methods.userExists(address).call();
       console.log(isRegistered);
+      const inDb = await triMailDB
+        .collection("UserSBT")
+        .where("owner", "==", address)
+        .get();
+      console.log(inDb.data[0]);
+      console.log(isRegistered && inDb);
       if (isRegistered) {
-        router.replace("/home");
+        console.log("replacing");
+        // router.replace("/home");
       } else {
         router.replace("/auth/signup");
       }

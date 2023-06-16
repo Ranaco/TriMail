@@ -6,7 +6,10 @@ import { CustomLink, MuiInput } from "../../components/styled-components";
 import Layout from "../../components/layout/secondary";
 import { usePolybase, useCollection } from "@polybase/react";
 import { AppState } from "../_app";
-import { User } from "../../lib/types";
+import { useRouter } from "next/router";
+import { Spinner } from "@chakra-ui/react";
+import { BigNumber } from "ethers";
+import { triMailDB } from "../../lib/utils/polybase-service";
 
 type FormStateType = {
   email: string;
@@ -17,6 +20,7 @@ type FormStateType = {
 };
 
 const SignUp: React.FC = () => {
+  const router = useRouter();
   const polyDB = usePolybase();
   const theme = useTheme();
   const { state, setState } = React.useContext(AppState);
@@ -30,6 +34,7 @@ const SignUp: React.FC = () => {
   };
 
   const [formState, setFormState] = React.useState<FormStateType>(initState);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const updateFormState = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,13 +47,41 @@ const SignUp: React.FC = () => {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log(formState);
     const name = [formState.firstName, formState.lastName].join(" ");
-    console.log(state);
-    // const receipt = await state.userSBT.methods
-    //   .mint(state.address, name)
-    //   .send({ from: state.address });
-    // console.log(receipt);
+    try {
+      await state.userSBT.methods
+        .mint(state.address, name)
+        .send({ from: state.address })
+        .on("confirmation", async (e) => {
+          console.log(e);
+          const bn: BigNumber = await state.userSBT.methods
+            .getCurrentTokenId()
+            .call();
+          const id = Number(bn.toString()) - 1;
+          console.log(id);
+          await polyDB
+            .collection("UserSBT")
+            .create([
+              id.toString(),
+              name,
+              state.address,
+              Date.now(),
+              Date.now(),
+              "",
+              [],
+            ])
+            .then((e) => {
+              console.log(e);
+              // router.push("/home");
+            });
+        });
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
+      console.log(e);
+    }
   };
 
   return (
@@ -119,11 +152,13 @@ const SignUp: React.FC = () => {
                 onChange={updateFormState}
               />
               <MuiInput
+                password
                 label="Password"
                 value={formState.password}
                 onChange={updateFormState}
               />
               <MuiInput
+                password
                 label="Confirm password"
                 value={formState.confPassword}
                 onChange={updateFormState}
@@ -131,6 +166,7 @@ const SignUp: React.FC = () => {
               />
 
               <Button
+                disabled={isLoading}
                 sx={{
                   alignSelf: "center",
                   bgcolor: theme.palette.secondary.dark,
@@ -139,7 +175,11 @@ const SignUp: React.FC = () => {
                 }}
                 type="submit"
               >
-                Sign up
+                {isLoading ? (
+                  <Spinner height={"40px"} width="40px" />
+                ) : (
+                  "Sign up"
+                )}
               </Button>
             </Stack>
           </form>

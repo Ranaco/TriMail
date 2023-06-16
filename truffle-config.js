@@ -9,7 +9,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           PRIVATE_KEY,
-          "wss://rpc.particle.network/evm-chain?chainId=80001&projectUuid=256a2b62-abc2-4e43-bd25-a507f725c6d4&projectKey=c18uSSyG2iAqVUFbGF04isQ68QwJH8xJY9mw6nvb"
+          "https://rpc.particle.network/evm-chain?chainId=80001&projectUuid=256a2b62-abc2-4e43-bd25-a507f725c6d4&projectKey=c18uSSyG2iAqVUFbGF04isQ68QwJH8xJY9mw6nvb"
         ),
       network_id: 80001,
       confirmations: 2,

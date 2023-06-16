@@ -42,8 +42,9 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
     function mint(
         address to,
         string memory name
-    ) external onlyOwner whenNotPaused returns(uint256 id){
+    ) external whenNotPaused returns(uint256 id){
         require(nextTokenId.current() < MAX_LIMIT, "Max supply reached");
+        // require(userRegistered[to] != true, "User alreay registered");
 
         TokenData storage data = tokenData[to];
         data.name = name;
@@ -59,6 +60,10 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         return data.id;
     }
 
+    function getCurrentTokenId() external view whenNotPaused returns(uint256){
+      return nextTokenId.current();
+    }
+
     function userExists(address owner) external view whenNotPaused returns(bool) {
         return userRegistered[owner];
     }
@@ -68,7 +73,7 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         string memory name,
         string memory ipfsHash,
         uint256 id
-    ) external onlyOwner whenNotPaused{
+    ) external whenNotPaused{
         require(_exists(id), "Token doesn't exist");
         TokenData storage _data = tokenData[owner];
         require(_data.locked == false, "Can't update. Token is locked");
@@ -77,13 +82,13 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         _data.ipfsHash = ipfsHash;
     }
 
-    function lockToken(address owner) external onlyOwner whenNotPaused {
+    function lockToken(address owner) external whenNotPaused {
         TokenData storage _data = tokenData[owner];
         require(_data.locked == false, "Already locked");
         _data.locked = true;
     }
 
-    function unlockToken(address owner) external onlyOwner whenNotPaused {
+    function unlockToken(address owner) external  whenNotPaused {
         TokenData storage _data = tokenData[owner];
         require(_data.locked == true, "Already unlocked");
         _data.locked = false;
@@ -92,7 +97,6 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
     function getTokenData(address owner, uint256 id)
         external
         view
-        onlyOwner
         whenNotPaused
         returns (TokenData memory)
     {

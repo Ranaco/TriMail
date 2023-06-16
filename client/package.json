@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "keywords": [],
-  "type": "module",
   "author": "Ranaco",
   "license": "ISC",
   "dependencies": {

@@ -14,6 +14,7 @@ interface InputProps {
   value: string;
   label: string;
   name?: string | undefined;
+  password?: boolean | undefined;
 }
 
 export const CustomLink = styled(Link)(({ theme }) => ({
@@ -23,6 +24,7 @@ export const CustomLink = styled(Link)(({ theme }) => ({
 
 export const MuiInput: React.FC<InputProps> = ({
   onChange,
+  password,
   value,
   label,
   name,
@@ -32,6 +34,7 @@ export const MuiInput: React.FC<InputProps> = ({
     <Stack width={"100%"} gap="10px">
       <Typography color={theme.palette.secondary.main}>{label}</Typography>
       <Input
+        type={password ? "password" : undefined}
         onChange={onChange}
         value={value}
         disableUnderline
