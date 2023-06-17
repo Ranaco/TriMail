@@ -173,7 +173,7 @@ const SignUp: React.FC = () => {
                   mt: "auto",
                   width: "50%",
                 }}
-                type="submit"
+                onClick={state.particleService.logOut}
               >
                 {isLoading ? (
                   <Spinner height={"40px"} width="40px" />

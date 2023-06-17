@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Typography, Button, useTheme } from "@mui/material";
 import Navbar from "../components/landing-navbar";
 import { useRouter } from "next/router";
+import Layout from "../components/layout/secondary";
 
 const LandingPage: React.FC = () => {
   const theme = useTheme();
@@ -81,5 +82,9 @@ const LandingPage: React.FC = () => {
     </Stack>
   );
 };
+
+LandingPage.getLayout = (page: JSX.Element) => (
+  <Layout title="TriMail">{page}</Layout>
+);
 
 export default LandingPage;

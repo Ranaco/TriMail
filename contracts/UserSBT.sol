@@ -44,7 +44,7 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         string memory name
     ) external whenNotPaused returns(uint256 id){
         require(nextTokenId.current() < MAX_LIMIT, "Max supply reached");
-        // require(userRegistered[to] != true, "User alreay registered");
+        require(userRegistered[to] != true, "User alreay registered");
 
         TokenData storage data = tokenData[to];
         data.name = name;

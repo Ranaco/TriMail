@@ -1,8 +1,28 @@
 import * as React from "react";
-import { Box, Stack, Typography, Grid } from "@mui/material";
+import { Box, Stack, Typography, Grid, Button } from "@mui/material";
 import Image from "next/image";
+import Layout from "../../components/layout/secondary";
+import Capsule from "../../lib/capsule";
 
 const Interests: React.FC = () => {
+  const filters: string[] = [
+    "Data Science",
+    "Innovation",
+    "Future of Technology",
+    "Blockchain",
+    "VR",
+    "Big Data",
+    "Machine Learning",
+    "IoT",
+    "AR",
+    "Fintech",
+    "Healthcare",
+    "User Experience",
+    "Productivity",
+  ];
+
+  const [activeFilter, setActiveFilter] = React.useState<string[]>([]);
+
   return (
     <Stack direction={"row"}>
       <Stack
@@ -39,12 +59,35 @@ const Interests: React.FC = () => {
             </Typography>
           </Stack>
           <Box>
-            <Grid container spacing={2}></Grid>
+            <Grid container spacing={3}>
+              {filters.map((e) => (
+                <Grid item>
+                  <Capsule
+                    active={false}
+                    label={e}
+                    onChange={(label, checked) => {
+                      console.log(label, checked);
+                      if (checked) {
+                        setActiveFilter((val) => [...val, label]);
+                      } else {
+                        setActiveFilter((val) =>
+                          val.filter((k) => k !== label)
+                        );
+                      }
+                    }}
+                  />
+                </Grid>
+              ))}
+            </Grid>
           </Box>
         </Stack>
       </Box>
     </Stack>
   );
 };
+
+Interests.getLayout = (page: JSX.Element) => (
+  <Layout title={"Trimail | Interests"}>{page}</Layout>
+);
 
 export default Interests;

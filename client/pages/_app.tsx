@@ -72,7 +72,7 @@ const App: React.FC<EmotionAppProps> = ({
       if (isRegistered) {
         router.replace("/home");
       } else {
-        router.replace("/auth/signup");
+        router.replace("/interests");
       }
     }
   };

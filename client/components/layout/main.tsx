@@ -1,11 +1,12 @@
 import * as React from "react";
 import Head from "next/head";
-import { Box } from "@mui/material";
-import { Router } from "next/router";
+import { NextRouter } from "next/router";
+import Navbar from "../navbar";
+import { height } from "@mui/system";
 
 export interface MainProps {
   children: React.ReactNode;
-  router?: Router;
+  router?: NextRouter;
 }
 
 const Main: React.FC<MainProps> = ({ children, router }) => {
@@ -17,7 +18,25 @@ const Main: React.FC<MainProps> = ({ children, router }) => {
         <meta name="description" content="TriMail! Newsletter the right way" />
         <title>TriMail</title>
       </Head>
-      <div>{children}</div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Navbar router={router} />
+        <div
+          style={{
+            paddingLeft: "40px",
+            paddingTop: "90px",
+            paddingRight: "40px",
+            maxHeight: "calc(100vh - 90px)",
+            height: "calc(100vh - 90px)",
+          }}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
