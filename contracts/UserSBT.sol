@@ -25,7 +25,7 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
 
     address public contractOwner;
 
-    constructor() ERC721("Soul Bound Token", "SBT") {
+    constructor() ERC721("Soul Bound Token", "UserSBT") {
       contractOwner = msg.sender;
     }
 
@@ -94,13 +94,13 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         _data.locked = false;
     }
 
-    function getTokenData(address owner, uint256 id)
+    function getTokenData(address owner)
         external
         view
         whenNotPaused
         returns (TokenData memory)
     {
-        require(_exists(id), "Token doesn't exist");
+      require(userRegistered[owner] == true, "UserSBT not registered!");
         TokenData memory _data = tokenData[owner];
         return _data;
     }

@@ -36,8 +36,9 @@ const Home: React.FC = () => {
             <Typography fontSize={"1.7em"} pb={"20px"}>
               Category
             </Typography>
-            {filters.map((e) => (
+            {filters.map((e, index) => (
               <Capsule
+                key={index}
                 active
                 label={e}
                 onChange={(label, checked) => {

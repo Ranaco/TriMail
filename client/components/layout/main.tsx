@@ -30,8 +30,8 @@ const Main: React.FC<MainProps> = ({ children, router }) => {
             paddingLeft: "40px",
             paddingTop: "90px",
             paddingRight: "40px",
-            maxHeight: "calc(100vh - 90px)",
-            height: "calc(100vh - 90px)",
+            maxHeight: "calc(100% - 20px)",
+            height: "calc(100vh - 20px)",
           }}
         >
           {children}

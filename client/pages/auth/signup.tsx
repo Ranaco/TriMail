@@ -51,32 +51,31 @@ const SignUp: React.FC = () => {
     console.log(formState);
     const name = [formState.firstName, formState.lastName].join(" ");
     try {
-      await state.userSBT.methods
-        .mint(state.address, name)
-        .send({ from: state.address })
-        .on("confirmation", async (e) => {
-          console.log(e);
-          const bn: BigNumber = await state.userSBT.methods
-            .getCurrentTokenId()
-            .call();
-          const id = Number(bn.toString()) - 1;
-          console.log(id);
-          await polyDB
+      const res = await polyDB
+        .collection("UserSBT")
+        .create([
+          Date.now().toString(),
+          name,
+          "waste",
+          Date.now(),
+          Date.now(),
+          "",
+          [],
+        ])
+        .then(async (e) => {
+          const data = await polyDB
             .collection("UserSBT")
-            .create([
-              id.toString(),
-              name,
-              state.address,
-              Date.now(),
-              Date.now(),
-              "",
-              [],
-            ])
-            .then((e) => {
-              console.log(e);
-              router.push("/home");
-            });
+            .where("address", "==", "waste")
+            .get();
         });
+
+      console.log(res);
+
+      // const userData = await polyDB
+      //   .collection("UserSBT")
+      //   .where("address", "==", state.address)
+      //   .get();
+
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
@@ -173,7 +172,7 @@ const SignUp: React.FC = () => {
                   mt: "auto",
                   width: "50%",
                 }}
-                onClick={state.particleService.logOut}
+                type="submit"
               >
                 {isLoading ? (
                   <Spinner height={"40px"} width="40px" />

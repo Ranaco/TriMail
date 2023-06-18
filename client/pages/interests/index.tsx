@@ -1,10 +1,13 @@
 import * as React from "react";
-import { Box, Stack, Typography, Grid, Button } from "@mui/material";
+import { Box, Stack, Typography, Grid, Button, useTheme } from "@mui/material";
 import Image from "next/image";
 import Layout from "../../components/layout/secondary";
 import Capsule from "../../lib/capsule";
+import { useRouter, NextRouter } from "next/router";
+import { AppState } from "../_app";
 
 const Interests: React.FC = () => {
+  const { state, setState } = React.useContext(AppState);
   const filters: string[] = [
     "Data Science",
     "Innovation",
@@ -21,7 +24,13 @@ const Interests: React.FC = () => {
     "Productivity",
   ];
 
+  const router: NextRouter = useRouter();
+  const theme = useTheme();
   const [activeFilter, setActiveFilter] = React.useState<string[]>([]);
+
+  const submit = () => {
+    console.log(activeFilter);
+  };
 
   return (
     <Stack direction={"row"}>
@@ -60,8 +69,8 @@ const Interests: React.FC = () => {
           </Stack>
           <Box>
             <Grid container spacing={3}>
-              {filters.map((e) => (
-                <Grid item>
+              {filters.map((e, index) => (
+                <Grid key={index} item>
                   <Capsule
                     active={false}
                     label={e}
@@ -79,6 +88,18 @@ const Interests: React.FC = () => {
                 </Grid>
               ))}
             </Grid>
+            <Button
+              onClick={submit}
+              sx={{
+                bgcolor: theme.palette.primary["100"],
+                color: "white",
+                mt: "50px",
+                pl: "15px",
+                pr: "15px",
+              }}
+            >
+              Continue
+            </Button>
           </Box>
         </Stack>
       </Box>

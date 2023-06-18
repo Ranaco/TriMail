@@ -26,6 +26,10 @@ const NavbarButtonGroup = () => {
   const router = useRouter();
   const theme = useTheme();
 
+  React.useEffect(() => {
+    setIndex(router.pathname == "/profile" ? 1 : 0);
+  }, []);
+
   const navigate = (path: string, index: number) => {
     router.push(`/${path}`);
     setIndex(index);

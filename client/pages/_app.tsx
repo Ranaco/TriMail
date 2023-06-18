@@ -6,9 +6,9 @@ import { CssBaseline } from "@mui/material";
 import createEmotionCache from "../lib/createEmotionCache";
 import Layout from "../components/layout/main";
 import ParticleService from "../lib/utils/particle-service";
-import { AppContextState, AppContextValue } from "../lib/types";
+import { AppContextState, AppContextValue, User } from "../lib/types";
 import { PolybaseProvider, usePolybase } from "@polybase/react";
-import triMailDB from "../lib/utils/polybase-service";
+import triMailDB from "../lib/utils/polybase-init";
 import Web3 from "web3";
 import { Contract } from "web3";
 import loadContract from "../lib/loadContract";
@@ -42,6 +42,7 @@ const App: React.FC<EmotionAppProps> = ({
     provider: particleService.particleProvider,
     particleService: new ParticleService(router),
     userSBT: undefined,
+    user: undefined,
   };
   const [state, setState] = React.useState<AppContextState>(initState);
   React.useEffect(() => {
@@ -59,21 +60,29 @@ const App: React.FC<EmotionAppProps> = ({
   };
 
   const updateState = async (address: string) => {
-    if (state.provider) {
-      const web3 = new Web3(state.provider);
-      const userSBT: Contract<any> = loadContract(web3);
+    const web3 = new Web3(state.provider);
+    const userSBT: Contract<any> = loadContract(web3);
+    setState((val) => ({ ...val, userSBT, address }));
+    if (address) {
       const isRegistered = await userSBT.methods.userExists(address).call();
-      const inDb = await triMailDB
+      const fetch = await triMailDB
         .collection("UserSBT")
         .where("owner", "==", address)
         .get();
-      console.log("This is the db res ", inDb.data[0]);
-      setState((val) => ({ ...val, address, userSBT }));
-      if (isRegistered) {
-        router.replace("/home");
+      const userExists = fetch.data[0];
+      if (isRegistered && userExists) {
+        const user: User = fetch.data[0].data;
+        setState((val) => ({ ...val, user }));
+        if (user.interests.length !== 0) {
+          router.replace("/home");
+        } else {
+          router.replace("/interests");
+        }
       } else {
-        router.replace("/interests");
+        router.replace("/auth/signup");
       }
+    } else if (state.provider) {
+      router.replace("/");
     }
   };
 

@@ -8,6 +8,7 @@ export type AppContextState = {
   particleService: ParticleService;
   provider: ParticleProvider;
   userSBT: Contract<any>;
+  user: User;
 };
 
 export type AppContextValue = {
@@ -18,9 +19,11 @@ export type AppContextValue = {
 export type User = {
   id: number;
   name: string;
-  locked: boolean;
-  ipfsHash: string;
+  locked?: boolean;
+  ipfsHash?: string;
   owner: string;
   createdAt: number;
   updatedAt: number;
+  interests: string[];
+  profileUrl: string;
 };
