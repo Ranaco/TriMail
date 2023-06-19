@@ -3,12 +3,11 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
-contract UserSBT is ERC721Enumerable, Ownable, Pausable {
-    using Counters for Counters.Counter;
+contract UserSBT is Ownable, Pausable, ERC721URIStorage{
 
 
     struct TokenData {
@@ -36,32 +35,28 @@ contract UserSBT is ERC721Enumerable, Ownable, Pausable {
         bool locked
     );
 
-    Counters.Counter private nextTokenId;
     uint256 private constant MAX_LIMIT = 1000;
 
     function mint(
         address to,
-        string memory name
-    ) external whenNotPaused returns(uint256 id){
-        require(nextTokenId.current() < MAX_LIMIT, "Max supply reached");
+        string memory name,
+        string memory tokenUri,
+        uint256 id
+    ) external whenNotPaused {
         require(userRegistered[to] != true, "User alreay registered");
 
         TokenData storage data = tokenData[to];
         data.name = name;
-        data.id = nextTokenId.current();
+        data.id = id;
         data.owner = to;
         data.locked = false;
         data.createdAt = block.timestamp;
 
-        _safeMint(to, nextTokenId.current());
+        _safeMint(to, id);
+        _setTokenURI(id, tokenUri);
+        
         userRegistered[to] = true;
-        emit UserCreated(nextTokenId.current(), name,  to, false);
-        nextTokenId.increment();
-        return data.id;
-    }
-
-    function getCurrentTokenId() external view whenNotPaused returns(uint256){
-      return nextTokenId.current();
+        emit UserCreated(id, name,  to, false);
     }
 
     function userExists(address owner) external view whenNotPaused returns(bool) {

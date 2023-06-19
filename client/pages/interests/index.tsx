@@ -5,6 +5,7 @@ import Layout from "../../components/layout/secondary";
 import Capsule from "../../lib/capsule";
 import { useRouter, NextRouter } from "next/router";
 import { AppState } from "../_app";
+import { usePolybase } from "@polybase/react";
 
 const Interests: React.FC = () => {
   const { state, setState } = React.useContext(AppState);
@@ -24,12 +25,21 @@ const Interests: React.FC = () => {
     "Productivity",
   ];
 
+  const polyDB = usePolybase();
+
   const router: NextRouter = useRouter();
   const theme = useTheme();
   const [activeFilter, setActiveFilter] = React.useState<string[]>([]);
 
   const submit = () => {
     console.log(activeFilter);
+    polyDB
+      .collection("UserSBT")
+      .record(String(state.user.id))
+      .call("updateInterests", [activeFilter])
+      .then((e) => {
+        router.push("/home");
+      });
   };
 
   return (

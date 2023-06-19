@@ -51,6 +51,11 @@ const App: React.FC<EmotionAppProps> = ({
 
   const setupLogin = async () => {
     address = await particleService.login();
+    const data = await triMailDB
+      .collection("UserSBT")
+      .where("owner", "==", "waste")
+      .get();
+    const user: User = data.data[0].data;
     if (address) {
       updateState(address);
     } else {

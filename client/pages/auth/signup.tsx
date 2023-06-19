@@ -9,6 +9,7 @@ import { AppState } from "../_app";
 import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
 import { BigNumber } from "ethers";
+import createNftUrl from "../../lib/utils/create-nft-url";
 
 type FormStateType = {
   email: string;
@@ -56,26 +57,29 @@ const SignUp: React.FC = () => {
         .create([
           Date.now().toString(),
           name,
-          "waste",
+          state.address,
           Date.now(),
           Date.now(),
           "",
           [],
+          "",
         ])
         .then(async (e) => {
-          const data = await polyDB
-            .collection("UserSBT")
-            .where("address", "==", "waste")
-            .get();
+          const metadataUri = await createNftUrl(e.data.id);
+          state.userSBT.methods
+            .mint(state.address, name, metadataUri, e.data.id)
+            .send({ from: state.address })
+            .on("receipt", async (res) => {
+              console.log(res.transactionHash);
+              await polyDB
+                .collection("UserSBT")
+                .record(e.data.id)
+                .call("updateTxnHash", [res.transactionHash])
+                .then((e) =>
+                  router.push("/interests").then((e) => location.reload())
+                );
+            });
         });
-
-      console.log(res);
-
-      // const userData = await polyDB
-      //   .collection("UserSBT")
-      //   .where("address", "==", state.address)
-      //   .get();
-
       setIsLoading(false);
     } catch (e) {
       setIsLoading(false);
