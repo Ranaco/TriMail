@@ -2,7 +2,7 @@ import * as React from "react";
 import { Box, Stack, Typography, Grid, Button, useTheme } from "@mui/material";
 import Image from "next/image";
 import Layout from "../../components/layout/secondary";
-import Capsule from "../../lib/capsule";
+import Capsule from "../../components/capsule";
 import { useRouter, NextRouter } from "next/router";
 import { AppState } from "../_app";
 import { usePolybase } from "@polybase/react";
@@ -38,7 +38,11 @@ const Interests: React.FC = () => {
       .record(String(state.user.id))
       .call("updateInterests", [activeFilter])
       .then((e) => {
-        router.push("/home");
+        polyDB
+          .collection("UserSBT")
+          .record(String(state.user.id))
+          .call("updateUpdatedAt", [Date.now()])
+          .then((e) => router.push("/home").then((e) => location.reload()));
       });
   };
 

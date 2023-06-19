@@ -22,17 +22,12 @@ const NavbarButton: React.FC<NavbarButtonProps> = ({ img, onClick }) => {
 };
 
 const NavbarButtonGroup = () => {
-  const [index, setIndex] = React.useState<number>(0);
   const router = useRouter();
   const theme = useTheme();
-
-  React.useEffect(() => {
-    setIndex(router.pathname == "/profile" ? 1 : 0);
-  }, []);
+  const home: boolean = router.asPath === "/home";
 
   const navigate = (path: string, index: number) => {
-    router.push(`/${path}`);
-    setIndex(index);
+    router.push(`${path}`);
   };
 
   return (
@@ -54,7 +49,7 @@ const NavbarButtonGroup = () => {
           transition: theme.transitions.create("marginLeft"),
         }}
         bgcolor={theme.palette.primary["100"]}
-        marginLeft={index === 0 ? "0px" : "50%"}
+        marginLeft={home ? "0px" : "50%"}
         borderRadius={"10px"}
         width={"50%"}
         height={"5px"}

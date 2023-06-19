@@ -51,11 +51,6 @@ const App: React.FC<EmotionAppProps> = ({
 
   const setupLogin = async () => {
     address = await particleService.login();
-    const data = await triMailDB
-      .collection("UserSBT")
-      .where("owner", "==", "waste")
-      .get();
-    const user: User = data.data[0].data;
     if (address) {
       updateState(address);
     } else {
@@ -78,7 +73,7 @@ const App: React.FC<EmotionAppProps> = ({
       if (isRegistered && userExists) {
         const user: User = fetch.data[0].data;
         setState((val) => ({ ...val, user }));
-        if (user.interests.length !== 0) {
+        if (user.interests.length != 0) {
           router.replace("/home");
         } else {
           router.replace("/interests");
@@ -111,7 +106,7 @@ const App: React.FC<EmotionAppProps> = ({
         <CssBaseline />
         <PolybaseProvider polybase={triMailDB}>
           <AppState.Provider value={{ state, setState }}>
-            <Layout router={router}>
+            <Layout>
               <Component {...pageProps} />
             </Layout>
           </AppState.Provider>

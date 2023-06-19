@@ -63,9 +63,10 @@ const SignUp: React.FC = () => {
           "",
           [],
           "",
+          "weekly",
         ])
         .then(async (e) => {
-          const metadataUri = await createNftUrl(e.data.id);
+          const metadataUri = createNftUrl(e.data.id);
           state.userSBT.methods
             .mint(state.address, name, metadataUri, e.data.id)
             .send({ from: state.address })

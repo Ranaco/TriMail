@@ -1,18 +1,15 @@
 import * as React from "react";
-import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
-import { NextRouter } from "next/router";
+import { Button, Stack, useTheme } from "@mui/material";
 import Image from "next/image";
-import NavbarButtonGroup from "../lib/navbar-button-group";
+import NavbarButtonGroup from "../components/navbar-button-group";
 import { AppState } from "../pages/_app";
-import { FaUserCircle } from "react-icons/fa";
+import { useRouter } from "next/router";
 
-interface NavbarProps {
-  router: NextRouter;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ router }) => {
+const Navbar: React.FC = () => {
   const theme = useTheme();
-  const { state, setState } = React.useContext(AppState);
+  const { state } = React.useContext(AppState);
+  const router = useRouter();
+
   return (
     <Stack
       bgcolor={theme.palette.secondary.dark}
@@ -28,7 +25,16 @@ const Navbar: React.FC<NavbarProps> = ({ router }) => {
       pl={"20px"}
       pr={"20px"}
     >
-      <Image src="/images/logo.svg" alt="Logo" width={100} height={100} />
+      <Image
+        onClick={() => router.push("/home")}
+        style={{
+          cursor: "pointer",
+        }}
+        src="/images/logo.svg"
+        alt="Logo"
+        width={100}
+        height={100}
+      />
       <NavbarButtonGroup />
       <Button
         onClick={() => {

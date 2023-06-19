@@ -26,4 +26,5 @@ export type User = {
   updatedAt: number;
   interests: string[];
   profileUrl: string;
+  frequency: string;
 };

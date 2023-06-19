@@ -1,15 +1,12 @@
 import * as React from "react";
 import Head from "next/head";
-import { NextRouter } from "next/router";
 import Navbar from "../navbar";
-import { height } from "@mui/system";
 
 export interface MainProps {
   children: React.ReactNode;
-  router?: NextRouter;
 }
 
-const Main: React.FC<MainProps> = ({ children, router }) => {
+const Main: React.FC<MainProps> = ({ children }) => {
   return (
     <div>
       <Head>
@@ -24,7 +21,7 @@ const Main: React.FC<MainProps> = ({ children, router }) => {
           flexDirection: "column",
         }}
       >
-        <Navbar router={router} />
+        <Navbar />
         <div
           style={{
             paddingLeft: "40px",
