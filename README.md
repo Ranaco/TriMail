@@ -25,7 +25,7 @@
 
 > ### Particle network
 
-> We used all the wallet features of Particle network - wallet auth, signing payments,
+> We used all the features of Particle network - wallet auth, signing payments,
 > managing User's Soul Bound Token, creating an overall seamsless and secure UX.
 > By providing us an easy-to-integrate and ready-to-use in-built wallet, we could
 > the UX overall improved greatly.
@@ -73,7 +73,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm dev
+  npm run dev
 ```
 
 ## Contributing
