@@ -1,13 +1,4 @@
 import { createTheme } from "@mui/material";
-import { M_PLUS_Rounded_1c } from "next/font/google";
-
-export const mplus = M_PLUS_Rounded_1c({
-  subsets: ["latin"],
-  weight: ["100", "300", "500", "700"],
-  fallback: ["Helvetica", "Sans Serrif"],
-  preload: true,
-  display: "auto",
-});
 
 const theme = createTheme({
   palette: {
@@ -31,9 +22,6 @@ const theme = createTheme({
     background: {
       default: "#1C1B1F",
     },
-  },
-  typography: {
-    fontFamily: mplus.style.fontFamily,
   },
 });
 
