@@ -61,7 +61,7 @@ const SignUp: React.FC = () => {
           "",
           [],
           "",
-          "weekly",
+          "Daily",
           formState.email,
         ])
         .then(async (e) => {
