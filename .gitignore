@@ -6,4 +6,5 @@ client/.next/
 node_modules/
 .git/
 package-lock.json/
+smpt-serv/.env
 
