@@ -27,8 +27,8 @@
 
 > We used all the features of Particle network - wallet auth, signing payments,
 > managing User's Soul Bound Token, creating an overall seamsless and secure UX.
-> By providing us an easy-to-integrate and ready-to-use in-built wallet, we could
-> the UX overall improved greatly.
+> By providing us an easy-to-integrate and ready-to-use in-built wallet,
+>  the UX overall improved greatly.
 
 > ### Polybase SDK
 
