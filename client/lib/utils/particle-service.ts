@@ -1,6 +1,6 @@
 import { ParticleNetwork, WalletEntryPosition } from "@particle-network/auth";
 import { EthereumGoerli, PolygonMumbai } from "@particle-network/common";
-import { evmWallets, ParticleConnect } from "@particle-network/connect";
+import { ParticleConnect } from "@particle-network/connect";
 import { ParticleProvider } from "@particle-network/provider";
 import { NextRouter, Router } from "next/router";
 

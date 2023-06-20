@@ -8,7 +8,7 @@ import { AppState } from "../_app";
 import { usePolybase } from "@polybase/react";
 
 const Interests: React.FC = () => {
-  const { state, setState } = React.useContext(AppState);
+  const { state } = React.useContext(AppState);
   const filters: string[] = [
     "Data Science",
     "Innovation",

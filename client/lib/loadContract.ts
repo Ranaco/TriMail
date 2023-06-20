@@ -1,10 +1,10 @@
-import UserSBT from "../build/UserSBT.json";
 import Web3 from "web3";
 import { Contract } from "web3";
+import UserSBTABI from "../build/UserSBT";
 
 const loadContract = (web3: Web3): Contract<any> => {
   const USER_SBT = process.env.NEXT_PUBLIC_USER_SBT;
-  const UserSBTAbi = UserSBT.abi;
+  const UserSBTAbi = UserSBTABI;
 
   if (web3 !== undefined) {
     try {

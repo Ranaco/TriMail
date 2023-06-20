@@ -4,11 +4,10 @@ import { Box } from "@mui/system";
 import Image from "next/image";
 import { CustomLink, MuiInput } from "../../components/styled-components";
 import Layout from "../../components/layout/secondary";
-import { usePolybase, useCollection } from "@polybase/react";
+import { usePolybase } from "@polybase/react";
 import { AppState } from "../_app";
 import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
-import { BigNumber } from "ethers";
 import createNftUrl from "../../lib/utils/create-nft-url";
 
 type FormStateType = {
@@ -23,8 +22,7 @@ const SignUp: React.FC = () => {
   const router = useRouter();
   const polyDB = usePolybase();
   const theme = useTheme();
-  const { state, setState } = React.useContext(AppState);
-  console.log(state);
+  const { state } = React.useContext(AppState);
 
   const initState: FormStateType = {
     email: "",
@@ -52,7 +50,7 @@ const SignUp: React.FC = () => {
     console.log(formState);
     const name = [formState.firstName, formState.lastName].join(" ");
     try {
-      const res = await polyDB
+      await polyDB
         .collection("UserSBT")
         .create([
           Date.now().toString(),
@@ -77,8 +75,8 @@ const SignUp: React.FC = () => {
                 .collection("UserSBT")
                 .record(e.data.id)
                 .call("updateTxnHash", [res.transactionHash])
-                .then((e) =>
-                  router.push("/interests").then((e) => location.reload())
+                .then(() =>
+                  router.push("/interests").then(() => location.reload())
                 );
             });
         });
