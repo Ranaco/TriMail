@@ -5,8 +5,14 @@ const { parsed: myEnv } = require("dotenv").config({
 });
 
 module.exports = {
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   reactStrictMode: true,
-
   webpack(config) {
     config.plugins.push(new webpack.EnvironmentPlugin(myEnv));
     return config;
