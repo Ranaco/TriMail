@@ -39,12 +39,11 @@ export const MuiInput: React.FC<InputProps> = ({
         value={value}
         disableUnderline
         required
-        style={{
-          paddingLeft: "10px",
-        }}
         name={name ?? String(label).toLowerCase()}
         sx={{
-          border: `1px solid ${theme.palette.secondary.dark}`,
+          borderRadius: "10px",
+          paddingLeft: "10px",
+          border: `1px solid grey`,
           ":focus-within": {
             border: `1px solid ${theme.palette.primary.main}`,
           },

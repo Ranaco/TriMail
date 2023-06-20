@@ -64,6 +64,7 @@ const SignUp: React.FC = () => {
           [],
           "",
           "weekly",
+          formState.email,
         ])
         .then(async (e) => {
           const metadataUri = createNftUrl(e.data.id);

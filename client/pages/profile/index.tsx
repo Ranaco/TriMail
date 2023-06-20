@@ -1,15 +1,19 @@
 import * as React from "react";
-import { Stack, Typography, Box, useTheme, Grid } from "@mui/material";
+import { Stack, Typography, Box, useTheme, Grid, Button } from "@mui/material";
 import { AppState } from "../_app";
 import Capsule from "../../components/capsule";
 import { usePolybase } from "@polybase/react";
 import ProfileAvatar from "../../components/profile-avatar";
 import ActiveButton from "../../components/active-button";
+import { MuiInput } from "../../components/styled-components";
+import { isEqual } from "lodash";
 
 type FormStateProps = {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
+  confPassword: string;
 };
 
 const Profile: React.FC = () => {
@@ -46,6 +50,8 @@ const Profile: React.FC = () => {
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
+    confPassword: "",
   });
 
   const uploadProfile = () => {
@@ -66,6 +72,18 @@ const Profile: React.FC = () => {
       ...val,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const updateUserData = () => {
+    const name = [formState.firstName, formState.lastName].join(" ");
+    polyDB
+      .collection("UserSBT")
+      .record(String(state.user.id))
+      .call("updateName", [name]);
+    polyDB
+      .collection("UserSBT")
+      .record(String(state.user.id))
+      .call("updateEmail", [formState.email]);
   };
 
   const updateUserInterests = (interest: string, active: boolean) => {
@@ -90,6 +108,14 @@ const Profile: React.FC = () => {
     if (state.user) {
       setActiveFilter(state.user.interests);
       setFrequency(state.user.frequency ?? frequency[0]);
+      const sName = state.user.name.split(" ");
+      setFormState((val) => ({
+        firstName: sName[0],
+        lastName: sName[1],
+        email: state.user.email ?? "",
+        confPassword: "****",
+        password: "****",
+      }));
     }
   });
 
@@ -100,6 +126,7 @@ const Profile: React.FC = () => {
         bgcolor={theme.palette.secondary.dark}
         flex={1}
         borderRadius={"10px"}
+        gap={"20px"}
         alignItems={"center"}
       >
         <ProfileAvatar
@@ -108,6 +135,59 @@ const Profile: React.FC = () => {
           setFile={setFile}
           uploadProfile={uploadProfile}
         />
+        <Stack direction={"row"} gap={"60px"} pt={"20px"}>
+          <MuiInput
+            label="First Name"
+            value={formState.firstName}
+            name={"firstName"}
+            onChange={updateFormState}
+          />
+          <MuiInput
+            label="Last Name"
+            value={formState.lastName}
+            name={"lastName"}
+            onChange={updateFormState}
+          />
+        </Stack>
+        <Box width={"73%"}>
+          <MuiInput
+            label="Email"
+            value={formState.email}
+            name={"email"}
+            onChange={updateFormState}
+          />
+        </Box>
+        <Box width={"73%"}>
+          <MuiInput
+            label="Password"
+            value={formState.password}
+            password
+            name={"password"}
+            onChange={updateFormState}
+          />
+        </Box>
+        <Box width={"73%"}>
+          <MuiInput
+            label="Confrm Password"
+            value={formState.confPassword}
+            password
+            name={"confPassword"}
+            onChange={updateFormState}
+          />
+        </Box>
+        <Button
+          sx={{
+            mt: "20px",
+            bgcolor: theme.palette.primary["100"],
+            color: "white",
+            pl: "40px",
+            pr: "40px",
+            borderRadius: "10px",
+          }}
+          onClick={updateUserData}
+        >
+          Save Changes
+        </Button>
       </Stack>
       <Stack flex={1} gap={"20px"}>
         <Box
@@ -129,7 +209,6 @@ const Profile: React.FC = () => {
                       active={activeFilters.includes(e)}
                       label={e}
                       onChange={(label, checked) => {
-                        console.log(label, checked);
                         updateUserInterests(label, checked);
                       }}
                     />
