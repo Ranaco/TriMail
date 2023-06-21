@@ -51,7 +51,8 @@
 
 3. Flask server for AI response
 
-   -
+   - Deploying the model was hard part because it is huge size so we cant deploy in free hosting platform like pythonanywhere,heroku and all other freehosting 
+    platform 
 
 ## Demo
 
@@ -73,6 +74,25 @@ Clone the project
 ```bash
   git clone https://github.com/Ranaco/trimail
 ```
+Running the model
+
+Download the model from this [Link](https://drive.google.com/file/d/17gmBpR9dUYMQNsH93vJj9twn7k6zPpMW/view) and store it in model directory
+
+```
+cd model
+```
+Install all the requirements 
+
+```
+pip install -r requirements.txt
+```
+
+To Run the model 
+
+```
+python recommendation_api.py
+```
+
 
 Go to the project directory
 
