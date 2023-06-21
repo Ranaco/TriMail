@@ -109,7 +109,7 @@ const Profile: React.FC = () => {
       setActiveFilter(state.user.interests);
       setFrequency(state.user.frequency ?? frequency[0]);
       const sName = state.user.name.split(" ");
-      setFormState((val) => ({
+      setFormState(() => ({
         firstName: sName[0],
         lastName: sName[1],
         email: state.user.email ?? "",

@@ -27,4 +27,5 @@ export type User = {
   interests: string[];
   profileUrl: string;
   frequency: string;
+  email: string;
 };
