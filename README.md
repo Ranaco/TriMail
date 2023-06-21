@@ -85,7 +85,7 @@ cd model
 To Run the model 
 
 ```
-python recommend_api.py
+python recommendation_api.py
 ```
 
 
