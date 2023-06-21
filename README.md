@@ -28,7 +28,7 @@
 > We used all the features of Particle network - wallet auth, signing payments,
 > managing User's Soul Bound Token, creating an overall seamsless and secure UX.
 > By providing us an easy-to-integrate and ready-to-use in-built wallet,
->  the UX overall improved greatly.
+> the UX overall improved greatly.
 
 > ### Polybase SDK
 
@@ -37,9 +37,25 @@
 > create the User's Soul Bound Token, which could be easily updated but just updating the
 > data on it's row. It was the perfect choice for this project.
 
+## Challenges I ran into
+
+1. Integrating polybase with particle network
+
+   - Integrating Polybase with Particle network was an issue, I had to create
+     a custom hook for that and some api calls
+
+2. Custom SMTP server
+
+   - Had to create a custom SMTP server for regular mailing, it was new to me.
+     Had to use cron jobs and nodemailer service, Finally integrated nodemailer with sendgrid
+
+3. Flask server for AI response
+
+   -
+
 ## Demo
 
-> [Live website]()
+> [Live website](https://trimail.tris.social)
 
 ## Tech Stack
 
