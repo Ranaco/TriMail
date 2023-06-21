@@ -74,6 +74,20 @@ Clone the project
 ```bash
   git clone https://github.com/Ranaco/trimail
 ```
+Running the model
+
+Download the model from this [Link](https://drive.google.com/file/d/17gmBpR9dUYMQNsH93vJj9twn7k6zPpMW/view) and store it in model directory
+
+```
+cd model
+```
+
+To Run the model 
+
+```
+python recommend_api.py
+```
+
 
 Go to the project directory
 
