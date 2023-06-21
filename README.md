@@ -51,7 +51,8 @@
 
 3. Flask server for AI response
 
-   -
+   - Deploying the model was hard part because it is huge size so we cant deploy in free hosting platform like pythonanywhere,heroku and all other freehosting 
+    platform 
 
 ## Demo
 
