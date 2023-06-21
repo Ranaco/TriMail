@@ -81,6 +81,11 @@ Download the model from this [Link](https://drive.google.com/file/d/17gmBpR9dUYM
 ```
 cd model
 ```
+Install all the requirements 
+
+```
+pip install -r requirements.txt
+```
 
 To Run the model 
 
