@@ -1,25 +1,25 @@
 from sklearn.metrics.pairwise import linear_kernel
 import pandas as pd
 import pickle
-from flask import Flask, jsonify, request
-import numpy as np
+from flask import Flask, jsonify,request
 
-app = Flask(__name__)
+app=Flask(__name__)
 vectorizer = pickle.load(open('vectorizer.pickle', 'rb'))
 
-df = pd.read_csv('papers.csv')
+df=pd.read_csv('papers.csv')
+
 
 col_titlesentences = df.title.tolist()
 col_id = df.id.tolist()
-col_cont = df.abstract.tolist()
+col_cont=df.abstract.tolist()
 
 with open('feature_vectors.pkl', 'rb') as file:
     stored_vectors = pickle.load(file)
-    stored_vectors = np.asarray(stored_vectors)  # Convert to numpy array
+
 
 
 def cosine(test2):
-    cosine_similarities = linear_kernel(np.asarray(test2), stored_vectors)
+    cosine_similarities = linear_kernel(test2, stored_vectors)
     num_domains = cosine_similarities.shape[0]
     related_docs_indices_list = []
     IDS = []
@@ -47,8 +47,7 @@ def get_response():
     test2 = vectorizer.transform(domain_names).toarray()
     result_knn, ids, conts_ = cosine(test2)
     print(result_knn, ids, conts_)
-    return jsonify(result_knn=result_knn, ids=ids, conts_=conts_)
+    return jsonify(result_knn, ids, conts_)
 
-
-if __name__ == '__main__':
+if __name__=='__main__':
     app.run()
