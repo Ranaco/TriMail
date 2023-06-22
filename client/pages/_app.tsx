@@ -71,7 +71,9 @@ const App: React.FC<EmotionAppProps> = ({
         .get();
       const userExists = fetch.data[0];
       if (isRegistered && userExists) {
-        const user: User = fetch.data[0].data;
+        const user: any = fetch.data.filter(
+          (e) => e.data.txnHash !== "" || undefined
+        )[0].data;
         setState((val) => ({ ...val, user }));
         if (user.interests.length !== 0) {
           router.replace("/home");
