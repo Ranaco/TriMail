@@ -9,6 +9,7 @@ import { AppState } from "../_app";
 import { useRouter } from "next/router";
 import { Spinner } from "@chakra-ui/react";
 import createNftUrl from "../../lib/utils/create-nft-url";
+import sendConfirmMail from "../../lib/mail-service";
 
 type FormStateType = {
   email: string;
@@ -71,6 +72,7 @@ const SignUp: React.FC = () => {
             .send({ from: state.address })
             .on("receipt", async (res) => {
               console.log(res.transactionHash);
+              await sendConfirmMail(name, formState.email);
               await polyDB
                 .collection("UserSBT")
                 .record(e.data.id)

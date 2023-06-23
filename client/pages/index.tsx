@@ -1,16 +1,14 @@
 import * as React from "react";
-import { Box, Stack } from "@mui/system";
+import { Stack } from "@mui/system";
 import { AppState } from "./_app";
 import Image from "next/image";
 import { Typography, Button, useTheme } from "@mui/material";
 import Navbar from "../components/landing-navbar";
-import { useRouter } from "next/router";
 import Layout from "../components/layout/secondary";
 
 const LandingPage: React.FC = () => {
   const theme = useTheme();
   const { state, setState } = React.useContext(AppState);
-  const router = useRouter();
 
   const login = async () => {
     try {

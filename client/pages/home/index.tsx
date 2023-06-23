@@ -3,10 +3,12 @@ import { Box, Stack, Typography, useTheme } from "@mui/material";
 import Capsule from "../../components/capsule";
 import NewsletterTile from "../../components/newsletter-tile";
 import { AppState } from "../_app";
+import fetchReports from "../../lib/fetch-reports";
 
 const Home: React.FC = () => {
   const { state } = React.useContext(AppState);
   const [interests, setInterests] = React.useState<string[]>([]);
+  const [reports, setReports] = React.useState([]);
 
   const theme = useTheme();
 
@@ -14,11 +16,20 @@ const Home: React.FC = () => {
     ...interests,
   ]);
 
+  const fetchReportData = async () => {
+    if (state.user) {
+      const report = await fetchReports(state.user.interests[0]);
+      setReports(report);
+      console.log(report);
+    }
+  };
+
   React.useEffect(() => {
     if (state.user) {
       setInterests(state.user.interests);
+      fetchReportData();
     }
-  });
+  }, [state.user]);
 
   return (
     <Stack width={"100%"} height={"100%"} direction="row" gap="20px">
@@ -53,9 +64,11 @@ const Home: React.FC = () => {
           </Stack>
         </Stack>
       </Box>
-      <Box flex={1}>
-        <NewsletterTile />
-      </Box>
+      <Stack flex={1} direction={"column"} gap={"20px"}>
+        {reports.map((e, index) => {
+          return <NewsletterTile {...e} key={index} />;
+        })}
+      </Stack>
     </Stack>
   );
 };
