@@ -112,6 +112,21 @@ Start the server
   npm run dev
 ```
 
+### ENV
+
+> The environement variable are as follows and can be obtained from respective sources.
+
+- NEXT_PUBLIC_POLY_NAMESPACE (Polybase)
+- NEXT_PUBLIC_APP_ID (Particle)
+- NEXT_PUBLIC_CLIENT_KEY (Particle)
+- NEXT_PUBLIC_PROJECT_ID (Particle)
+- NEXT_PUBLIC_PRIVATE_KEY (Wallet)
+- NEXT_PUBLIC_USER_SBT (Smart contract address mentioned in the README)
+- NEXT_PUBLIC_CORE_KEY (CORE API key)
+- NEXT_PUBLIC_MAILGUN_API_KEY (Mailgun API key)
+- NEXT_PUBLIC_MAILGUN_DOMAIN (Mailgun domain)
+
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
