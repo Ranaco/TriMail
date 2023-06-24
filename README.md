@@ -96,7 +96,7 @@ Start the server
 
 ### ENV
 
-> The environement variable are as follows and can be obtained from respective sources.
+> The environment variables are as follows and can be obtained from respective sources.
 
 - NEXT_PUBLIC_POLY_NAMESPACE (Polybase)
 - NEXT_PUBLIC_APP_ID (Particle)
