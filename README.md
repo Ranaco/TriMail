@@ -1,78 +1,60 @@
 # TriMail
 
-> Trimail is an all round web3 AI-based solution for newsletter and article reading.
-> Unlike any convnetional newsletter service, **TriMail** works with a mix of AI and blockchain
-> to create a flawless and secure newsletter and interest environment.
+> TriMail is an all-around web3 AI-based solution for newsletters and article reading. Unlike conventional newsletter services, **TriMail** utilizes a combination of AI and blockchain technologies to create a flawless and secure newsletter and interest environment.
 
 ## Inspiration
 
-> The idea of TriMail with a mix of blockchain and AI seemed fascinating to us, imagine
-> being able to not just get whatever newsletter, but only the one that you are really
-> interested in, with the security and privacy of blockchain. TriMail makes it possible
-> with the help of [Particle](https://particle.network/), [Polybase](https://polybase.xyz)
-> ,[Tensorflow](https://tensorflow.org/) and a custom SMTP server using [Nodemailer](https://nodemailer.com)
+> The idea of TriMail, incorporating both blockchain and AI, fascinated us. Imagine being able to receive newsletters only on topics you are genuinely interested in, all while ensuring security and privacy through blockchain technology. TriMail makes this possible with the help of [Particle](https://particle.network/), [Polybase](https://polybase.xyz), [Tensorflow](https://tensorflow.org/), and a custom SMTP server using [Nodemailer](https://nodemailer.com).
 
 ## Features
 
-- Seamelss, secure and engaging UX.
-- Interests can be picked and updated at anytime, easily.
-- Regular and automatic mailing systetm.
-- Custom AI model to fetch research papers, based on interests.
-- Safe and secure management of data.
-- User's soul bound ledger makes the process more secure and transparent.
-- Multiple sign-in options, Gmail, Phone, mail, web3 wallet, etc.
-- Fresh and user friendly UI
+- Seamless, secure, and engaging UX.
+- Users can easily select and update their interests at any time.
+- Regular and automatic mailing system.
+- Custom AI model for fetching research papers based on user interests.
+- Safe and secure data management.
+- User's soul-bound ledger enhances security and transparency.
+- Multiple sign-in options, including Gmail, phone, email, and web3 wallet.
+- Fresh and user-friendly UI.
 
-> ### Particle network
+> ### Particle Network
 
-> We used all the features of Particle network - wallet auth, signing payments,
-> managing User's Soul Bound Token, creating an overall seamsless and secure UX.
-> By providing us an easy-to-integrate and ready-to-use in-built wallet,
-> the UX overall improved greatly.
+> We utilized various features of the Particle network, such as wallet authentication, signing payments, managing the User's Soul Bound Token, and creating a seamless and secure user experience. The built-in wallet provided by Particle significantly improved the overall user experience.
 
 > ### Polybase SDK
 
-> Polybase integrated well with our demands, not just for managing the user's personal info,
-> interests and other stuff, but also, using the dynamic NFT servide, we could very easily
-> create the User's Soul Bound Token, which could be easily updated but just updating the
-> data on it's row. It was the perfect choice for this project.
+> Polybase seamlessly integrated with our requirements, enabling us to manage users' personal information, interests, and more. Additionally, by leveraging the dynamic NFT service, we easily created the User's Soul Bound Token, which can be updated simply by modifying the data on its row. Polybase was the perfect choice for this project.
 
-## Challenges I ran into
+## Challenges Faced
 
-1. Integrating polybase with particle network
+1. Integrating Polybase with the Particle network:
+   - Integrating Polybase with the Particle network posed a challenge. We had to create a custom hook and make API calls to establish the integration.
 
-   - Integrating Polybase with Particle network was an issue, I had to create
-     a custom hook for that and some api calls
+2. Custom SMTP server:
+   - Setting up a custom SMTP server for regular mailing was a new experience for us. We utilized cron jobs and integrated Nodemailer with SendGrid to overcome this challenge.
 
-2. Custom SMTP server
-
-   - Had to create a custom SMTP server for regular mailing, it was new to me.
-     Had to use cron jobs and nodemailer service, Finally integrated nodemailer with sendgrid
-
-3. Flask server for AI response
-
-   - Deploying the model was hard part because it is huge size so we cant deploy in free hosting platform like pythonanywhere,heroku and all other freehosting 
-    platform 
+3. Flask server for AI response:
+   - Deploying the AI model was a challenging task due to its large size, making it impractical to deploy on free hosting platforms such as PythonAnywhere or Heroku.
 
 ## Demo
 
-> [Live website](https://trimail.tris.social)
+> [Live Website](https://trimail.tris.social)
 
 ## Tech Stack
 
-- **Frontend**: NEXT.js, ethers, Material UI,
-- **Backend**: Polybase, Particle auth, Particle connect, Flask, Nodejs, Tensorflow
+- **Frontend**: NEXT.js, ethers, Material UI
+- **Backend**: Polybase, Particle auth, Particle connect, Flask, Node.js, Tensorflow
 
-## Deployed conracts
+## Deployed Contracts
 
 > [UserSBT (Polygon Mumbai)](https://mumbai.polygonscan.com/address/0x2F834f7a9e29e87D59D7e83c89359d9938BD1317)
 
-## Run Locally
+## Running Locally
 
-Clone the project
+Clone the project:
 
 ```bash
-  git clone https://github.com/Ranaco/trimail
+git clone https://github.com/Ranaco/trimail
 ```
 Running the model
 
