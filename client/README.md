@@ -14,9 +14,9 @@
 
 ## Features
 
-- Seamelss, secure and engaging UX.
+- Seamless, secure and engaging UX.
 - Interests can be picked and updated at anytime, easily.
-- Regular and automatic mailing systetm.
+- Regular and automatic mailing system.
 - Custom AI model to fetch research papers, based on interests.
 - Safe and secure management of data.
 - User's soul bound ledger makes the process more secure and transparent.
@@ -26,14 +26,14 @@
 > ### Particle network
 
 > We used all the features of Particle network - wallet auth, signing payments,
-> managing User's Soul Bound Token, creating an overall seamsless and secure UX.
+> managing User's Soul Bound Token, creating an overall seamless and secure UX.
 > By providing us an easy-to-integrate and ready-to-use in-built wallet,
 >  the UX overall improved greatly.
 
 > ### Polybase SDK
 
 > Polybase integrated well with our demands, not just for managing the user's personal info,
-> interests and other stuff, but also, using the dynamic NFT servide, we could very easily
+> interests and other stuff, but also, using the dynamic NFT service, we could very easily
 > create the User's Soul Bound Token, which could be easily updated but just updating the
 > data on it's row. It was the perfect choice for this project.
 
