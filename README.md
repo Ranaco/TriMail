@@ -1,2 +1,2 @@
 # TriMail
-AI based research recomendation system
+AI based research  paper recomendation system
